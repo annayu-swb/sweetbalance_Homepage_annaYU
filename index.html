@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>유안나의 홈페이지</title>
+  <style>
+    :root {
+      --bg: #fdfcfb;
+      --fg: #2c2a28;
+      --muted: #8a8582;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #1c1b1a;
+        --fg: #f2efec;
+        --muted: #9c9793;
+      }
+    }
+    * { box-sizing: border-box; }
+    html, body { height: 100%; margin: 0; }
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--bg);
+      color: var(--fg);
+      font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo",
+        "Malgun Gothic", "Noto Sans KR", sans-serif;
+      text-align: center;
+      padding: 24px;
+    }
+    h1 {
+      margin: 0 0 16px;
+      font-size: clamp(1.5rem, 5vw, 2.5rem);
+      font-weight: 600;
+      letter-spacing: -0.02em;
+    }
+    #today {
+      margin: 0;
+      font-size: clamp(0.95rem, 2.5vw, 1.125rem);
+      color: var(--muted);
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>안녕하세요, 유안나입니다</h1>
+    <p id="today">오늘 날짜를 불러오는 중…</p>
+  </main>
+  <script>
+    (function () {
+      var now = new Date();
+      var days = ["일", "월", "화", "수", "목", "금", "토"];
+      var text =
+        now.getFullYear() + "년 " +
+        (now.getMonth() + 1) + "월 " +
+        now.getDate() + "일 (" +
+        days[now.getDay()] + ")";
+      document.getElementById("today").textContent = text;
+    })();
+  </script>
+</body>
+</html>
