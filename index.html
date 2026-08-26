@@ -1,64 +1,1288 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>유안나의 홈페이지</title>
-  <style>
-    :root {
-      --bg: #fdfcfb;
-      --fg: #2c2a28;
-      --muted: #8a8582;
-    }
-    @media (prefers-color-scheme: dark) {
-      :root {
-        --bg: #1c1b1a;
-        --fg: #f2efec;
-        --muted: #9c9793;
-      }
-    }
-    * { box-sizing: border-box; }
-    html, body { height: 100%; margin: 0; }
-    body {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: var(--bg);
-      color: var(--fg);
-      font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo",
-        "Malgun Gothic", "Noto Sans KR", sans-serif;
-      text-align: center;
-      padding: 24px;
-    }
-    h1 {
-      margin: 0 0 16px;
-      font-size: clamp(1.5rem, 5vw, 2.5rem);
-      font-weight: 600;
-      letter-spacing: -0.02em;
-    }
-    #today {
-      margin: 0;
-      font-size: clamp(0.95rem, 2.5vw, 1.125rem);
-      color: var(--muted);
-    }
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>스윗밸런스 — 잘 먹는 것까지가 운동입니다</title>
+<meta name="description" content="운동하는 사람을 위한 고단백 한 끼. 운동 루틴 캘린더로 오늘의 운동과 한 끼를 함께 기록하세요.">
+<meta name="theme-color" content="#00614E">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Chewy&display=swap" rel="stylesheet">
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+
+<style>
+/* ═══════════════════════════════════════════════════════════
+   SweetBalance Design System — Tokens
+   Ver. 2025.07.25 기준 / Internal Use
+   ═══════════════════════════════════════════════════════════ */
+
+/* 한글 디스플레이 전용 — 삼립호빵체 (미로드 시 Pretendard로 폴백) */
+@font-face {
+  font-family: 'SamlipHopangche';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/Samliphopangche_Basic.woff') format('woff');
+  font-weight: normal; font-style: normal; font-display: swap;
+}
+
+:root {
+  /* ── Primary — 브랜드 3색 ── */
+  --g:        #00614E;   /* Vital Green    · 로고·주요 CTA·헤드라인 */
+  --g2:       #007C5E;   /* Harmony Green  · Hover·보조 포인트 */
+  --sw:       #FDFFE6;   /* Sunshine White · 페이지 기본 배경 */
+
+  /* ── Secondary — 한 화면에 하나만. 이 페이지는 Sky Blue 단독 ── */
+  --sky:      #50AADC;   /* Sky Blue · 수분·정보·쿨 대비 */
+  --sky-deep: #2C7BA6;   /* Sky Blue 위 텍스트 대비용 */
+
+  /* ── Neutrals ── */
+  --ink:   #1B2A24;
+  --char:  #3A4742;
+  --slate: #6B7571;
+  --mist:  #C8CEC9;
+  --paper: #F6F4E8;
+  --white: #FFFFFF;
+
+  /* ── Semantic ── */
+  --bg: var(--sw);
+  --fg: var(--ink);
+  --fg-brand: var(--g);
+  --fg-on-green: var(--sw);
+  --border: rgba(0,97,78,.18);
+  --divider: rgba(0,97,78,.09);
+  --tint: rgba(0,97,78,.06);
+  --tint-strong: rgba(0,97,78,.10);
+  --sky-tint: rgba(80,170,220,.14);
+
+  /* ── Shadows — 전부 그린 틴트. 회색 드롭섀도우 금지 ── */
+  --shadow-xs:    0 1px 2px rgba(27,42,36,.06);
+  --shadow-sm:    0 2px 6px rgba(27,42,36,.08);
+  --shadow-md:    0 8px 24px rgba(27,42,36,.10);
+  --shadow-lg:    0 20px 48px rgba(0,97,78,.14);
+  --shadow-brand: 0 10px 28px rgba(0,97,78,.22);
+
+  /* ── Radii — 워크호스는 14px ── */
+  --radius-xs: 4px;  --radius-sm: 8px;  --radius-md: 14px;
+  --radius-lg: 20px; --radius-xl: 28px; --radius-2xl: 36px;
+  --radius-pill: 999px;
+
+  /* ── Spacing — 8px 리듬 ── */
+  --space-1: 4px;  --space-2: 8px;  --space-3: 12px; --space-4: 16px;
+  --space-5: 20px; --space-6: 24px; --space-8: 32px; --space-10: 40px;
+  --space-12: 48px; --space-16: 64px; --space-20: 80px; --space-24: 96px;
+
+  /* ── Type ── */
+  --en: 'Montserrat', sans-serif;
+  --kr: 'Pretendard Variable', 'Pretendard', 'Apple SD Gothic Neo', sans-serif;
+  --display-en: 'Chewy', 'Montserrat', sans-serif;
+  --display-kr: 'SamlipHopangche', 'Pretendard Variable', 'Pretendard', sans-serif;
+
+  --text-6xl: 84px; --text-5xl: 64px; --text-4xl: 48px; --text-3xl: 36px;
+  --text-2xl: 28px; --text-xl: 22px;  --text-lg: 18px;  --text-md: 16px;
+  --text-sm: 14px;  --text-xs: 12px;
+
+  --leading-tight: 1.15; --leading-snug: 1.3;
+  --leading-normal: 1.5; --leading-relaxed: 1.7;
+  --tracking-tight: -.02em; --tracking-wide: .04em; --tracking-widest: .16em;
+
+  /* ── Motion ── */
+  --ease-out-soft: cubic-bezier(.22,.61,.36,1);
+  --ease-spring:   cubic-bezier(.34,1.56,.64,1);
+  --ease-in-soft:  cubic-bezier(.55,.06,.68,.19);
+  --fast: 120ms; --base: 220ms; --slow: 420ms;
+
+  /* ── Layout ── */
+  --container: 1280px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--kr);
+  font-size: var(--text-md);
+  line-height: var(--leading-relaxed);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4 { line-height: var(--leading-tight); letter-spacing: var(--tracking-tight); }
+button, input, select { font: inherit; color: inherit; }
+a { color: inherit; text-decoration: none; }
+ul { list-style: none; }
+
+/* Focus — 2px Vital Green outline, offset 2px */
+:focus-visible {
+  outline: 2px solid var(--g);
+  outline-offset: 2px;
+  border-radius: var(--radius-xs);
+}
+
+.container { max-width: var(--container); margin: 0 auto; padding: 0 var(--space-6); }
+.ic { width: 24px; height: 24px; stroke: currentColor; stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; fill: none; flex-shrink: 0; }
+.ic-16 { width: 16px; height: 16px; }
+.ic-20 { width: 20px; height: 20px; }
+.eyebrow {
+  font-family: var(--en); font-size: var(--text-xs); font-weight: 700;
+  letter-spacing: var(--tracking-widest); text-transform: uppercase; color: var(--g);
+}
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* ═══ Buttons ═══ */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: var(--space-2);
+  font-family: var(--kr); font-size: var(--text-sm); font-weight: 600;
+  padding: 13px 24px; border-radius: var(--radius-pill); border: none;
+  cursor: pointer; transition: background var(--fast) var(--ease-out-soft),
+    color var(--fast) var(--ease-out-soft), box-shadow 180ms var(--ease-out-soft),
+    transform 180ms var(--ease-out-soft);
+}
+.btn-primary { background: var(--g); color: var(--fg-on-green); box-shadow: var(--shadow-brand); }
+.btn-primary:hover { background: var(--g2); transform: translateY(-2px); box-shadow: 0 14px 32px rgba(0,97,78,.26); }
+.btn-primary:active { transform: scale(.98); box-shadow: var(--shadow-sm); transition-duration: var(--fast); }
+.btn-secondary { background: transparent; color: var(--g); border: 1.5px solid var(--g); }
+.btn-secondary:hover { background: var(--tint); }
+.btn-secondary:active { transform: scale(.98); }
+.btn-ghost { background: transparent; color: var(--g); padding: 10px 16px; }
+.btn-ghost:hover { background: var(--tint); }
+.btn:disabled { opacity: .4; box-shadow: none; cursor: default; transform: none; }
+.btn-sm { padding: 8px 16px; font-size: var(--text-xs); }
+.btn-lg { padding: 16px 30px; font-size: var(--text-md); }
+
+/* ═══ Badges ═══ */
+.badge {
+  display: inline-flex; align-items: center; gap: 4px;
+  padding: 5px 12px; border-radius: var(--radius-pill);
+  font-family: var(--kr); font-size: 11px; font-weight: 700;
+  letter-spacing: var(--tracking-wide);
+  background: var(--tint-strong); color: var(--g);
+}
+.badge-solid { background: var(--g); color: var(--sw); }
+.badge-sky { background: var(--sky-tint); color: var(--sky-deep); }
+
+/* ═══ Card ═══ */
+.card {
+  background: var(--white); border: 1px solid var(--border);
+  border-radius: var(--radius-lg); box-shadow: var(--shadow-sm);
+}
+
+/* ═══════════════ Header ═══════════════ */
+.site-header {
+  position: sticky; top: 0; z-index: 50;
+  background: rgba(253,255,230,.86); backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--divider);
+}
+.header-inner { display: flex; align-items: center; justify-content: space-between; height: 68px; }
+.wordmark {
+  display: flex; align-items: center; gap: var(--space-2);
+  font-family: var(--en); font-weight: 800; font-size: var(--text-lg);
+  letter-spacing: var(--tracking-tight); color: var(--g);
+}
+.wordmark .leafmark {
+  width: 30px; height: 30px; border-radius: var(--radius-pill);
+  background: var(--g); color: var(--sw);
+  display: flex; align-items: center; justify-content: center;
+}
+.site-nav { display: flex; align-items: center; gap: var(--space-6); }
+.site-nav a {
+  font-size: var(--text-sm); font-weight: 500; color: var(--char);
+  transition: color var(--fast) var(--ease-out-soft);
+}
+.site-nav a:hover { color: var(--g); }
+@media (max-width: 720px) { .site-nav .nav-link { display: none; } }
+
+/* ═══════════════ Hero ═══════════════ */
+.hero { padding: var(--space-20) 0 var(--space-24); overflow: hidden; }
+.hero-grid {
+  display: grid; grid-template-columns: 1.15fr .85fr;
+  gap: var(--space-16); align-items: center;
+}
+.hero h1 {
+  font-family: var(--display-kr);
+  font-size: clamp(40px, 6.4vw, var(--text-5xl));
+  line-height: 1.18; color: var(--g);
+  margin: var(--space-4) 0 var(--space-5);
+  letter-spacing: -.01em;
+}
+.hero h1 em { font-style: normal; color: var(--sky-deep); }
+.hero-lede {
+  font-size: var(--text-lg); line-height: var(--leading-relaxed);
+  color: var(--char); max-width: 46ch; margin-bottom: var(--space-8);
+}
+.hero-actions { display: flex; gap: var(--space-3); flex-wrap: wrap; margin-bottom: var(--space-8); }
+.hero-specs { display: flex; gap: var(--space-6); flex-wrap: wrap; }
+.hero-spec .n {
+  font-family: var(--en); font-weight: 800; font-size: var(--text-2xl);
+  color: var(--g); letter-spacing: var(--tracking-tight); line-height: 1;
+}
+.hero-spec .l { font-size: var(--text-xs); color: var(--slate); margin-top: 6px; }
+
+/* Hero visual — 색·도형·이모지 */
+.bowl {
+  position: relative; width: min(380px, 100%); aspect-ratio: 1;
+  margin: 0 auto; border-radius: var(--radius-pill);
+  background: radial-gradient(circle at 32% 28%, #FFFFFF 0%, var(--paper) 58%, #E9EDDB 100%);
+  border: 2px solid var(--border);
+  box-shadow: var(--shadow-lg);
+  display: flex; align-items: center; justify-content: center;
+}
+.bowl::before {
+  content: ""; position: absolute; inset: 26px;
+  border-radius: var(--radius-pill); border: 1.5px dashed rgba(0,97,78,.16);
+}
+.bowl-main { font-size: clamp(84px, 14vw, 128px); line-height: 1; }
+.orbit { position: absolute; font-size: 34px; line-height: 1; }
+.orbit-1 { top: 17%; right: 21%; }
+.orbit-2 { bottom: 22%; left: 19%; }
+.orbit-3 { bottom: 15%; right: 29%; }
+.chip-float {
+  position: absolute; display: flex; align-items: center; gap: var(--space-2);
+  background: var(--white); border: 1px solid var(--border);
+  border-radius: var(--radius-pill); padding: 10px 16px;
+  box-shadow: var(--shadow-md); white-space: nowrap;
+}
+.chip-float .k { font-family: var(--en); font-weight: 800; font-size: var(--text-lg); color: var(--g); }
+.chip-float .v { font-size: var(--text-xs); color: var(--slate); }
+.chip-a { top: 6%; left: -6%; }
+.chip-b { bottom: 10%; right: -8%; }
+.chip-b .k { color: var(--sky-deep); }
+
+@media (max-width: 900px) {
+  .hero { padding: var(--space-12) 0 var(--space-16); }
+  .hero-grid { grid-template-columns: 1fr; gap: var(--space-12); }
+  .hero-visual { order: -1; }
+  .chip-a { left: 0; } .chip-b { right: 0; }
+}
+
+/* ═══════════════ Section shell ═══════════════ */
+.section { padding: var(--space-24) 0; }
+section[id] { scroll-margin-top: 88px; }
+.section-head { max-width: 72ch; margin-bottom: var(--space-12); }
+.section-head h2 {
+  font-family: var(--display-kr); font-size: clamp(30px, 4.4vw, var(--text-4xl));
+  color: var(--ink); margin: var(--space-3) 0 var(--space-4); line-height: 1.25;
+}
+.section-head p { font-size: var(--text-lg); color: var(--char); }
+
+/* ═══════════════ Products ═══════════════ */
+.products { background: var(--paper); border-block: 1px solid var(--divider); }
+.product-grid { display: grid; grid-template-columns: 1.28fr 1fr; gap: var(--space-6); }
+.product-sub-grid { display: grid; gap: var(--space-6); }
+
+.product-hero {
+  background: var(--g); border-radius: var(--radius-2xl); color: var(--sw);
+  padding: var(--space-10); display: flex; flex-direction: column;
+  position: relative; overflow: hidden; box-shadow: var(--shadow-brand);
+}
+.product-hero::after {
+  content: ""; position: absolute; width: 340px; height: 340px;
+  right: -110px; bottom: -140px; border-radius: var(--radius-pill);
+  background: rgba(253,255,230,.06);
+}
+.product-hero .visual {
+  position: relative; align-self: flex-start;
+  width: 168px; height: 168px; border-radius: var(--radius-pill);
+  background: rgba(253,255,230,.12); border: 1.5px solid rgba(253,255,230,.25);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 84px; margin-bottom: var(--space-6);
+}
+.product-hero h3 {
+  font-family: var(--display-kr); font-size: var(--text-3xl);
+  color: var(--sw); margin-bottom: var(--space-2); position: relative; line-height: 1.3;
+}
+.product-hero .en {
+  font-family: var(--en); font-weight: 600; font-size: var(--text-sm);
+  color: rgba(253,255,230,.6); letter-spacing: var(--tracking-wide);
+  text-transform: uppercase; position: relative; margin-bottom: var(--space-4);
+}
+.product-hero .why {
+  font-size: var(--text-md); line-height: var(--leading-relaxed);
+  color: rgba(253,255,230,.86); max-width: 44ch; margin-bottom: var(--space-6); position: relative;
+}
+.spec-row { display: flex; gap: var(--space-6); margin-bottom: var(--space-8); position: relative; flex-wrap: wrap; }
+.spec { display: flex; flex-direction: column; }
+.spec .n { font-family: var(--en); font-weight: 800; font-size: var(--text-2xl); line-height: 1; color: var(--sw); }
+.spec .n small { font-size: var(--text-sm); font-weight: 600; }
+.spec .l { font-size: var(--text-xs); color: rgba(253,255,230,.6); margin-top: 6px; letter-spacing: var(--tracking-wide); }
+.product-hero .buy { display: flex; align-items: center; justify-content: space-between; gap: var(--space-4); margin-top: auto; position: relative; flex-wrap: wrap; }
+.price { font-family: var(--en); font-weight: 800; font-size: var(--text-2xl); color: var(--sw); }
+.btn-on-green { background: var(--sw); color: var(--g); box-shadow: 0 10px 28px rgba(0,0,0,.16); }
+.btn-on-green:hover { background: var(--white); transform: translateY(-2px); }
+.btn-on-green:active { transform: scale(.98); }
+.tag-row { display: flex; gap: var(--space-2); flex-wrap: wrap; margin-bottom: var(--space-5); position: relative; }
+.tag-on-green {
+  padding: 5px 12px; border-radius: var(--radius-pill); font-size: 11px; font-weight: 700;
+  background: rgba(253,255,230,.14); color: var(--sw); letter-spacing: var(--tracking-wide);
+}
+
+.product-card { display: flex; gap: var(--space-5); padding: var(--space-5); align-items: center; }
+.product-card .visual {
+  width: 96px; height: 96px; border-radius: var(--radius-md); flex-shrink: 0;
+  background: var(--paper); border: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: center; font-size: 44px;
+}
+.product-card h4 { font-family: var(--kr); font-size: var(--text-lg); font-weight: 700; color: var(--ink); margin-bottom: 2px; }
+.product-card .en { font-family: var(--en); font-size: var(--text-xs); color: var(--slate); margin-bottom: var(--space-2); }
+.product-card .meta { font-size: var(--text-sm); color: var(--char); margin-bottom: var(--space-3); }
+.product-card .foot { display: flex; align-items: center; justify-content: space-between; gap: var(--space-3); }
+.product-card .p { font-family: var(--en); font-weight: 700; font-size: var(--text-lg); color: var(--g); }
+.icon-btn {
+  width: 34px; height: 34px; border-radius: var(--radius-pill); border: none;
+  background: var(--g); color: var(--sw); cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: background var(--fast) var(--ease-out-soft), transform 180ms var(--ease-spring);
+}
+.icon-btn:hover { background: var(--g2); transform: translateY(-2px); }
+.icon-btn:active { transform: scale(.98); }
+
+@media (max-width: 900px) { .product-grid { grid-template-columns: 1fr; } }
+
+/* ═══════════════ ★ 운동 루틴 캘린더 (주인공) ═══════════════ */
+.routine { position: relative; }
+.routine-shell {
+  background: var(--white); border: 1px solid var(--border);
+  border-radius: var(--radius-2xl); box-shadow: var(--shadow-lg); overflow: hidden;
+}
+
+/* 상단 통계 스트립 */
+.stat-strip { display: grid; grid-template-columns: repeat(3, 1fr); border-bottom: 1px solid var(--divider); }
+.stat {
+  padding: var(--space-6) var(--space-6); display: flex; gap: var(--space-4); align-items: center;
+  border-right: 1px solid var(--divider);
+}
+.stat:last-child { border-right: none; }
+.stat .badge-ic {
+  width: 44px; height: 44px; border-radius: var(--radius-md); flex-shrink: 0;
+  background: var(--tint-strong); color: var(--g);
+  display: flex; align-items: center; justify-content: center;
+}
+.stat.is-sky .badge-ic { background: var(--sky-tint); color: var(--sky-deep); }
+.stat .v {
+  font-family: var(--en); font-weight: 800; font-size: var(--text-3xl);
+  line-height: 1; color: var(--ink); letter-spacing: var(--tracking-tight);
+}
+.stat .v small { font-size: var(--text-md); font-weight: 600; color: var(--slate); margin-left: 2px; }
+.stat .l { font-size: var(--text-xs); color: var(--slate); margin-top: 6px; }
+@media (max-width: 780px) {
+  .stat-strip { grid-template-columns: 1fr; }
+  .stat { border-right: none; border-bottom: 1px solid var(--divider); padding: var(--space-5); }
+}
+
+.routine-body { display: grid; grid-template-columns: 1.1fr .9fr; }
+@media (max-width: 980px) { .routine-body { grid-template-columns: 1fr; } }
+
+.cal-pane { padding: var(--space-8); border-right: 1px solid var(--divider); }
+@media (max-width: 980px) { .cal-pane { border-right: none; border-bottom: 1px solid var(--divider); } }
+
+.cal-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: var(--space-6); }
+.cal-title { font-family: var(--en); font-weight: 700; font-size: var(--text-xl); color: var(--ink); }
+.cal-title span { font-family: var(--kr); font-size: var(--text-sm); color: var(--slate); font-weight: 500; margin-left: var(--space-2); }
+.cal-nav { display: flex; gap: var(--space-2); }
+.nav-btn {
+  width: 36px; height: 36px; border-radius: var(--radius-pill);
+  border: 1.5px solid var(--border); background: var(--white); color: var(--g);
+  cursor: pointer; display: flex; align-items: center; justify-content: center;
+  transition: background var(--fast) var(--ease-out-soft), border-color var(--fast) var(--ease-out-soft);
+}
+.nav-btn:hover:not(:disabled) { background: var(--tint); border-color: var(--g); }
+.nav-btn:disabled { opacity: .35; cursor: default; }
+
+.dow { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: var(--space-2); margin-bottom: var(--space-2); }
+.dow span {
+  text-align: center; font-family: var(--en); font-size: 11px; font-weight: 700;
+  letter-spacing: var(--tracking-wide); color: var(--slate); text-transform: uppercase;
+}
+.cal-grid { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: var(--space-2); }
+
+.day {
+  position: relative; aspect-ratio: 1; min-width: 0; overflow: hidden; border-radius: var(--radius-md);
+  border: 1.5px solid var(--divider); background: var(--white);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 2px; cursor: pointer; padding: 0;
+  transition: background var(--fast) var(--ease-out-soft),
+    border-color var(--fast) var(--ease-out-soft), transform 180ms var(--ease-out-soft);
+}
+.day:hover:not(:disabled) { background: var(--tint); border-color: var(--border); transform: translateY(-2px); }
+.day:active:not(:disabled) { transform: scale(.98); }
+.day .d { font-family: var(--en); font-size: var(--text-sm); font-weight: 600; color: var(--char); }
+.day.is-empty { border: none; background: transparent; cursor: default; pointer-events: none; }
+.day:disabled { opacity: .3; cursor: default; }
+.day.is-today { border-color: var(--sky); border-width: 2px; }
+.day.is-today .d { color: var(--sky-deep); font-weight: 800; }
+.day.is-selected { border-color: var(--g); border-width: 2px; background: var(--tint); }
+.day.is-stamped { background: var(--g); border-color: var(--g); }
+.day.is-stamped .d { color: rgba(253,255,230,.75); font-size: var(--text-xs); }
+.day.is-stamped:hover { background: var(--g2); border-color: var(--g2); }
+.day.is-stamped.is-today { border-color: var(--sky); box-shadow: 0 0 0 2px var(--sky-tint); }
+.day .stamp { font-size: 20px; line-height: 1; animation: stamp-in var(--base) var(--ease-spring); }
+@keyframes stamp-in { from { opacity: 0; transform: scale(.7); } to { opacity: 1; transform: scale(1); } }
+.day .rest { color: var(--sw); opacity: .9; }
+
+.cal-legend { display: flex; gap: var(--space-4); flex-wrap: wrap; margin-top: var(--space-6); }
+.legend-item { display: flex; align-items: center; gap: 6px; font-size: var(--text-xs); color: var(--slate); }
+.legend-dot { width: 12px; height: 12px; border-radius: var(--radius-xs); }
+.legend-dot.filled { background: var(--g); }
+.legend-dot.today { border: 2px solid var(--sky); }
+.legend-dot.blank { border: 1.5px solid var(--divider); }
+
+/* 기록 패널 */
+.log-pane { padding: var(--space-8); background: var(--paper); display: flex; flex-direction: column; }
+.log-date { font-family: var(--kr); font-weight: 700; font-size: var(--text-xl); color: var(--ink); }
+.log-sub { font-size: var(--text-sm); color: var(--slate); margin-top: 4px; margin-bottom: var(--space-6); }
+.field { margin-bottom: var(--space-6); }
+.field > .label {
+  display: block; font-size: var(--text-xs); font-weight: 700; color: var(--g);
+  letter-spacing: var(--tracking-wide); text-transform: uppercase; margin-bottom: var(--space-3);
+}
+.choice-row { display: flex; gap: var(--space-2); flex-wrap: wrap; }
+.choice {
+  border: 1.5px solid var(--border); background: var(--white); color: var(--char);
+  border-radius: var(--radius-pill); padding: 9px 16px;
+  font-size: var(--text-sm); font-weight: 600; cursor: pointer;
+  display: inline-flex; align-items: center; gap: 6px;
+  transition: background var(--fast) var(--ease-out-soft), color var(--fast) var(--ease-out-soft),
+    border-color var(--fast) var(--ease-out-soft), transform 180ms var(--ease-out-soft);
+}
+.choice:hover { background: var(--tint); transform: translateY(-2px); }
+.choice[aria-pressed="true"] { background: var(--g); border-color: var(--g); color: var(--sw); }
+.choice[aria-pressed="true"]:hover { background: var(--g2); border-color: var(--g2); }
+.choice .g { font-family: var(--en); font-size: 11px; font-weight: 700; opacity: .7; }
+
+.meal-row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-2); }
+.meal {
+  display: flex; align-items: center; gap: var(--space-3); text-align: left;
+  border: 1.5px solid var(--border); background: var(--white);
+  border-radius: var(--radius-md); padding: 12px 14px; cursor: pointer;
+  transition: background var(--fast) var(--ease-out-soft), border-color var(--fast) var(--ease-out-soft),
+    transform 180ms var(--ease-out-soft);
+}
+.meal:hover { background: var(--tint); transform: translateY(-2px); }
+.meal[aria-pressed="true"] { border-color: var(--g); border-width: 2px; background: var(--tint); padding: 11px 13px; }
+.meal .em { font-size: 26px; line-height: 1; }
+.meal .nm { font-size: var(--text-sm); font-weight: 600; color: var(--ink); word-break: keep-all; }
+.meal .pg { font-family: var(--en); font-size: 11px; font-weight: 700; color: var(--g); margin-top: 2px; }
+@media (max-width: 560px) { .meal-row { grid-template-columns: 1fr; } }
+
+.log-preview {
+  margin-top: auto; display: flex; align-items: center; gap: var(--space-4);
+  background: var(--white); border: 1px solid var(--border);
+  border-radius: var(--radius-md); padding: var(--space-4) var(--space-5);
+}
+.log-preview.is-ready { border-color: var(--g); background: var(--tint); }
+.log-preview .lp-em { font-size: 30px; line-height: 1; }
+.log-preview .lp-t { font-size: var(--text-sm); font-weight: 700; color: var(--ink); line-height: var(--leading-normal); }
+.log-preview .lp-s { font-size: var(--text-xs); color: var(--slate); margin-top: 3px; }
+
+.log-actions { display: flex; gap: var(--space-3); align-items: center; padding-top: var(--space-4); flex-wrap: wrap; }
+.log-msg {
+  font-size: var(--text-sm); color: var(--g); font-weight: 600;
+  display: flex; align-items: center; gap: 6px;
+  opacity: 0; transition: opacity var(--base) var(--ease-out-soft);
+}
+.log-msg.show { opacity: 1; }
+.btn-danger-ghost { background: transparent; color: #A83232; padding: 10px 14px; }
+.btn-danger-ghost:hover { background: rgba(214,69,69,.07); }
+
+/* 주간 단백질 리포트 */
+.week-report { padding: var(--space-8); border-top: 1px solid var(--divider); }
+.week-head { display: flex; align-items: flex-end; justify-content: space-between; gap: var(--space-4); flex-wrap: wrap; margin-bottom: var(--space-6); }
+.week-head h3 { font-family: var(--kr); font-size: var(--text-lg); font-weight: 700; color: var(--ink); }
+.week-head p { font-size: var(--text-sm); color: var(--slate); margin-top: 2px; }
+.goal-pick { display: flex; align-items: center; gap: var(--space-2); }
+.goal-pick .label { font-size: var(--text-xs); color: var(--slate); margin-right: 2px; }
+
+.bars { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: var(--space-3); align-items: end; height: 172px; position: relative; }
+.goal-line { position: absolute; left: 0; right: 0; border-top: 1.5px dashed var(--sky); pointer-events: none; }
+.bar-col { display: flex; flex-direction: column; justify-content: flex-end; align-items: center; gap: var(--space-2); height: 100%; min-width: 0; }
+.bar-track { width: 100%; flex: 1; display: flex; align-items: flex-end; }
+.bar {
+  width: 100%; border-radius: var(--radius-sm) var(--radius-sm) 4px 4px;
+  background: var(--tint-strong); min-height: 4px;
+  transition: height var(--base) var(--ease-out-soft), background var(--fast) var(--ease-out-soft);
+  position: relative;
+}
+.bar.has { background: var(--g); }
+.bar.hit { background: var(--sky); }
+.bar .val {
+  position: absolute; top: -20px; left: 50%; transform: translateX(-50%);
+  font-family: var(--en); font-size: 10px; font-weight: 700; color: var(--char); white-space: nowrap;
+}
+.bar-col .dl { font-size: 11px; color: var(--slate); text-align: center; }
+.bar-col.is-today .dl { color: var(--sky-deep); font-weight: 700; }
+
+.week-note {
+  margin-top: var(--space-6); padding: var(--space-4) var(--space-5);
+  background: var(--sky-tint); border-radius: var(--radius-md);
+  font-size: var(--text-sm); color: var(--char); line-height: var(--leading-relaxed);
+  display: flex; gap: var(--space-3); align-items: flex-start;
+}
+.week-note svg { color: var(--sky-deep); margin-top: 2px; }
+
+@media (max-width: 560px) {
+  .cal-pane, .log-pane, .week-report { padding: var(--space-5); }
+  .day .stamp { font-size: 15px; }
+  .day .d { font-size: var(--text-xs); }
+  .cal-title { font-size: var(--text-lg); }
+  .bars { gap: 6px; height: 152px; }
+  .bar .val { font-size: 9px; }
+  .stat .v { font-size: var(--text-2xl); }
+}
+
+/* ═══════════════ Brand ═══════════════ */
+.brand { background: var(--g); color: var(--sw); padding: var(--space-24) 0 var(--space-16); position: relative; overflow: hidden; }
+.brand::before {
+  content: "SweetBalance"; position: absolute; top: 24px; left: 24px;
+  font-family: var(--display-en); font-size: 200px; line-height: 1;
+  color: rgba(253,255,230,.05); pointer-events: none; user-select: none; white-space: nowrap;
+}
+.brand-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-16); position: relative; align-items: start; }
+.brand .eyebrow { color: rgba(253,255,230,.6); }
+.brand h2 {
+  font-family: var(--display-kr); font-size: clamp(28px, 4vw, var(--text-3xl));
+  color: var(--sw); margin: var(--space-3) 0 var(--space-5); line-height: 1.35;
+}
+.brand .mission-en { font-size: var(--text-sm); font-style: italic; color: rgba(253,255,230,.6); line-height: var(--leading-relaxed); }
+.pillars { display: grid; gap: var(--space-4); }
+.pillar { background: rgba(253,255,230,.07); border: 1px solid rgba(253,255,230,.14); border-radius: var(--radius-lg); padding: var(--space-5) var(--space-6); }
+.pillar .w { font-family: var(--en); font-weight: 800; font-size: var(--text-xl); color: var(--sw); }
+.pillar .kr { font-family: var(--display-kr); font-size: var(--text-md); color: rgba(253,255,230,.7); margin-bottom: var(--space-2); }
+.pillar .ds { font-size: var(--text-sm); color: rgba(253,255,230,.82); line-height: var(--leading-relaxed); }
+@media (max-width: 900px) { .brand-grid { grid-template-columns: 1fr; gap: var(--space-10); } }
+
+.site-footer {
+  border-top: 1px solid rgba(253,255,230,.16); margin-top: var(--space-16);
+  padding-top: var(--space-8); position: relative;
+  display: flex; align-items: center; justify-content: space-between; gap: var(--space-4); flex-wrap: wrap;
+}
+.site-footer .slogan { font-family: var(--en); font-weight: 700; font-size: var(--text-md); color: rgba(253,255,230,.85); font-style: italic; }
+.site-footer .legal { font-size: var(--text-xs); color: rgba(253,255,230,.55); }
+.footer-links { display: flex; gap: var(--space-5); }
+.footer-links a { font-size: var(--text-xs); color: rgba(253,255,230,.7); display: flex; align-items: center; gap: 6px; }
+.footer-links a:hover { color: var(--sw); }
+
+/* Intro (한 번만, 루프 없음) */
+.rise { animation: rise var(--slow) var(--ease-out-soft) both; }
+.rise-2 { animation-delay: 80ms; }
+.rise-3 { animation-delay: 160ms; }
+@keyframes rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) {
+  * { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+  html { scroll-behavior: auto; }
+}
+</style>
 </head>
 <body>
-  <main>
-    <h1>안녕하세요, 유안나입니다</h1>
-    <p id="today">오늘 날짜를 불러오는 중…</p>
-  </main>
-  <script>
-    (function () {
-      var now = new Date();
-      var days = ["일", "월", "화", "수", "목", "금", "토"];
-      var text =
-        now.getFullYear() + "년 " +
-        (now.getMonth() + 1) + "월 " +
-        now.getDate() + "일 (" +
-        days[now.getDay()] + ")";
-      document.getElementById("today").textContent = text;
-    })();
-  </script>
+
+<!-- ═══ Lucide 아이콘 (stroke 1.75, round cap/join) ═══ -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="i-leaf" viewBox="0 0 24 24"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></symbol>
+  <symbol id="i-flame" viewBox="0 0 24 24"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5Z"/></symbol>
+  <symbol id="i-calendar" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></symbol>
+  <symbol id="i-check-circle" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M5 12h14M12 5v14"/></symbol>
+  <symbol id="i-chevron-left" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></symbol>
+  <symbol id="i-chevron-right" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></symbol>
+  <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M8 16H3v5"/></symbol>
+  <symbol id="i-star" viewBox="0 0 24 24"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.12 2.12 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.12 2.12 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.12 2.12 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.12 2.12 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.12 2.12 0 0 0 1.597-1.16z"/></symbol>
+  <symbol id="i-truck" viewBox="0 0 24 24"><path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2"/><path d="M15 18H9"/><path d="M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.624l-3.48-4.35A1 1 0 0 0 17.52 8H14"/><circle cx="17" cy="18" r="2"/><circle cx="7" cy="18" r="2"/></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92"/></symbol>
+  <symbol id="i-bell" viewBox="0 0 24 24"><path d="M10.268 21a2 2 0 0 0 3.464 0"/><path d="M3.262 15.326A1 1 0 0 0 4 17h16a1 1 0 0 0 .74-1.673C19.41 13.956 18 12.499 18 8A6 6 0 0 0 6 8c0 4.499-1.411 5.956-2.738 7.326"/></symbol>
+  <symbol id="i-shopping-bag" viewBox="0 0 24 24"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></symbol>
+</svg>
+
+<!-- ═══════════════ Header ═══════════════ -->
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="wordmark" href="#top">
+      <span class="leafmark"><svg class="ic ic-16"><use href="#i-leaf"/></svg></span>
+      SweetBalance
+    </a>
+    <nav class="site-nav">
+      <a class="nav-link" href="#product">대표 제품</a>
+      <a class="nav-link" href="#routine">운동 루틴 캘린더</a>
+      <a class="nav-link" href="#brand">브랜드</a>
+      <a class="btn btn-secondary btn-sm" href="#routine">
+        <svg class="ic ic-16"><use href="#i-calendar"/></svg>오늘 기록하기
+      </a>
+    </nav>
+  </div>
+</header>
+
+<!-- ═══════════════ Hero ═══════════════ -->
+<section class="hero" id="top">
+  <div class="container hero-grid">
+    <div class="hero-copy">
+      <div class="eyebrow rise">For people who train</div>
+      <h1 class="rise rise-2">잘 먹는 것까지가<br><em>운동</em>입니다</h1>
+      <p class="hero-lede rise rise-3">
+        3대 운동은 챙기면서 한 끼는 대충 넘기지 않으셨으면 해요.
+        스윗밸런스는 새벽에 만들어 아침에 도착하는 고단백 한 끼로,
+        오늘의 운동을 끝까지 완성해 드립니다.
+      </p>
+      <div class="hero-actions rise rise-3">
+        <a class="btn btn-primary btn-lg" href="#routine">
+          <svg class="ic ic-20"><use href="#i-calendar"/></svg>운동 루틴 캘린더 시작하기
+        </a>
+        <a class="btn btn-secondary btn-lg" href="#product">대표 제품 보기</a>
+      </div>
+      <div class="hero-specs rise rise-3">
+        <div class="hero-spec"><div class="n">23g</div><div class="l">콥샐러드 단백질</div></div>
+        <div class="hero-spec"><div class="n">420<small>kcal</small></div><div class="l">한 그릇 기준</div></div>
+        <div class="hero-spec"><div class="n">AM 7</div><div class="l">새벽 조리 · 아침 도착</div></div>
+      </div>
+    </div>
+    <div class="hero-visual rise rise-2">
+      <div class="bowl">
+        <span class="bowl-main" role="img" aria-label="샐러드 한 그릇">🥗</span>
+        <span class="orbit orbit-1" role="img" aria-label="아보카도">🥑</span>
+        <span class="orbit orbit-2" role="img" aria-label="달걀">🥚</span>
+        <span class="orbit orbit-3" role="img" aria-label="방울토마토">🍅</span>
+        <div class="chip-float chip-a"><span class="k">23g</span><span class="v">단백질</span></div>
+        <div class="chip-float chip-b"><span class="k">8g</span><span class="v">식이섬유</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ 대표 제품 ═══════════════ -->
+<section class="section products" id="product">
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow">Today's Pick</div>
+      <h2>운동 후 한 그릇, 콥샐러드</h2>
+      <p>닭가슴살·달걀·아보카도를 한 그릇에. 운동하는 분들이 가장 많이 다시 찾는 메뉴입니다.</p>
+    </div>
+
+    <div class="product-grid">
+      <article class="product-hero">
+        <div class="visual"><span role="img" aria-label="콥샐러드">🥗</span></div>
+        <div class="tag-row">
+          <span class="tag-on-green">BEST</span>
+          <span class="tag-on-green">고단백</span>
+          <span class="tag-on-green">저당 드레싱</span>
+        </div>
+        <h3>콥샐러드</h3>
+        <div class="en">Cobb Salad</div>
+        <p class="why">
+          닭가슴살 120g, 삶은 달걀 2개, 아보카도, 채소 4종, 저당 드레싱.
+          단백질과 식이섬유를 한 번에 채울 수 있어서, 운동 직후 한 끼로 가장 많이 선택하십니다.
+          씹는 재료가 많아 포만감이 오래 갑니다.
+        </p>
+        <div class="spec-row">
+          <div class="spec"><div class="n">23<small>g</small></div><div class="l">단백질</div></div>
+          <div class="spec"><div class="n">420<small>kcal</small></div><div class="l">열량</div></div>
+          <div class="spec"><div class="n">8<small>g</small></div><div class="l">식이섬유</div></div>
+          <div class="spec"><div class="n">6<small>g</small></div><div class="l">당류</div></div>
+        </div>
+        <div class="buy">
+          <span class="price">₩9,900</span>
+          <button class="btn btn-on-green" type="button" data-add="콥샐러드">
+            <svg class="ic ic-20"><use href="#i-shopping-bag"/></svg>장바구니에 담기
+          </button>
+        </div>
+      </article>
+
+      <div class="product-sub-grid">
+        <article class="card product-card">
+          <div class="visual"><span role="img" aria-label="닭가슴살 스테이크">🍗</span></div>
+          <div>
+            <h4>닭가슴살 스테이크</h4>
+            <div class="en">Chicken Breast Steak</div>
+            <div class="meta">단백질 32g · 280kcal · 당류 2g</div>
+            <div class="foot">
+              <span class="p">₩7,500</span>
+              <button class="icon-btn" type="button" data-add="닭가슴살 스테이크" aria-label="닭가슴살 스테이크 담기">
+                <svg class="ic ic-16"><use href="#i-plus"/></svg>
+              </button>
+            </div>
+          </div>
+        </article>
+
+        <article class="card product-card">
+          <div class="visual"><span role="img" aria-label="프로틴 쉐이크">🥤</span></div>
+          <div>
+            <h4>프로틴 쉐이크</h4>
+            <div class="en">Protein Shake</div>
+            <div class="meta">단백질 20g · 150kcal · 무가당</div>
+            <div class="foot">
+              <span class="p">₩4,800</span>
+              <button class="icon-btn" type="button" data-add="프로틴 쉐이크" aria-label="프로틴 쉐이크 담기">
+                <svg class="ic ic-16"><use href="#i-plus"/></svg>
+              </button>
+            </div>
+          </div>
+        </article>
+
+        <article class="card product-card">
+          <div class="visual"><span role="img" aria-label="주간 정기구독 박스">📦</span></div>
+          <div>
+            <h4>주 5일 루틴 박스</h4>
+            <div class="en">Weekly Routine Box</div>
+            <div class="meta">평일 5끼 · 단백질 평균 26g · 새벽 배송</div>
+            <div class="foot">
+              <span class="p">₩39,000</span>
+              <button class="icon-btn" type="button" data-add="주 5일 루틴 박스" aria-label="주 5일 루틴 박스 담기">
+                <svg class="ic ic-16"><use href="#i-plus"/></svg>
+              </button>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ ★ 주인공 — 운동 루틴 캘린더 ═══════════════ -->
+<section class="section routine" id="routine">
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow">Signature Feature</div>
+      <h2>운동 루틴 캘린더</h2>
+      <p>
+        오늘 한 운동과 챙긴 한 끼를 함께 남겨보세요. 날짜를 누르면 도장이 찍히고,
+        연속 기록과 단백질 합계가 자동으로 쌓입니다. 기록은 이 브라우저에만 저장됩니다.
+      </p>
+    </div>
+
+    <div class="routine-shell">
+      <!-- 통계 -->
+      <div class="stat-strip">
+        <div class="stat is-sky">
+          <div class="badge-ic"><svg class="ic"><use href="#i-flame"/></svg></div>
+          <div>
+            <div class="v" id="stat-streak">0<small>일</small></div>
+            <div class="l">연속 기록</div>
+          </div>
+        </div>
+        <div class="stat">
+          <div class="badge-ic"><svg class="ic"><use href="#i-check-circle"/></svg></div>
+          <div>
+            <div class="v" id="stat-month">0<small>일</small></div>
+            <div class="l" id="stat-month-label">이번 달 기록</div>
+          </div>
+        </div>
+        <div class="stat">
+          <div class="badge-ic"><svg class="ic"><use href="#i-leaf"/></svg></div>
+          <div>
+            <div class="v" id="stat-protein">0<small>g</small></div>
+            <div class="l">이번 달 누적 단백질</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="routine-body">
+        <!-- 캘린더 -->
+        <div class="cal-pane">
+          <div class="cal-head">
+            <div class="cal-title" id="cal-title">— <span id="cal-title-kr"></span></div>
+            <div class="cal-nav">
+              <button class="nav-btn" type="button" id="prev-month" aria-label="이전 달">
+                <svg class="ic ic-20"><use href="#i-chevron-left"/></svg>
+              </button>
+              <button class="nav-btn" type="button" id="next-month" aria-label="다음 달">
+                <svg class="ic ic-20"><use href="#i-chevron-right"/></svg>
+              </button>
+            </div>
+          </div>
+          <div class="dow" aria-hidden="true">
+            <span>일</span><span>월</span><span>화</span><span>수</span><span>목</span><span>금</span><span>토</span>
+          </div>
+          <div class="cal-grid" id="cal-grid" role="grid" aria-label="운동 루틴 캘린더"></div>
+          <div class="cal-legend">
+            <span class="legend-item"><span class="legend-dot filled"></span>기록 완료</span>
+            <span class="legend-item"><span class="legend-dot today"></span>오늘</span>
+            <span class="legend-item"><span class="legend-dot blank"></span>비어 있는 날</span>
+          </div>
+        </div>
+
+        <!-- 기록 패널 -->
+        <div class="log-pane">
+          <div class="log-date" id="log-date">날짜를 선택해 주세요</div>
+          <div class="log-sub" id="log-sub">캘린더에서 기록할 날짜를 누르면 여기에 입력창이 열려요.</div>
+
+          <div class="field">
+            <span class="label">오늘의 운동</span>
+            <div class="choice-row" id="workout-row" role="group" aria-label="오늘의 운동 선택"></div>
+          </div>
+
+          <div class="field">
+            <span class="label">함께 챙긴 한 끼</span>
+            <div class="meal-row" id="meal-row" role="group" aria-label="한 끼 선택"></div>
+          </div>
+
+          <div class="log-preview" id="log-preview" aria-live="polite">
+            <div class="lp-em" id="lp-em" aria-hidden="true">🍽️</div>
+            <div>
+              <div class="lp-t" id="lp-title">운동과 한 끼를 모두 고르면 도장을 찍을 수 있어요</div>
+              <div class="lp-s" id="lp-sub">기록은 이 브라우저에만 저장되고, 언제든 지울 수 있어요.</div>
+            </div>
+          </div>
+
+          <div class="log-actions">
+            <button class="btn btn-primary" type="button" id="save-btn" disabled>
+              <svg class="ic ic-20"><use href="#i-check"/></svg>도장 찍기
+            </button>
+            <button class="btn btn-danger-ghost" type="button" id="delete-btn" hidden>기록 지우기</button>
+            <span class="log-msg" id="log-msg"><svg class="ic ic-16"><use href="#i-check-circle"/></svg><span id="log-msg-text"></span></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 주간 단백질 리포트 -->
+      <div class="week-report">
+        <div class="week-head">
+          <div>
+            <h3>최근 7일 · 한 끼 단백질</h3>
+            <p id="week-caption">기록한 한 끼의 단백질이에요. 목표선 25g을 넘긴 날은 하늘색으로 표시됩니다.</p>
+          </div>
+          <div class="goal-pick">
+            <span class="label">한 끼 목표</span>
+            <button class="choice" type="button" data-goal="20" aria-pressed="false">20g</button>
+            <button class="choice" type="button" data-goal="25" aria-pressed="true">25g</button>
+            <button class="choice" type="button" data-goal="30" aria-pressed="false">30g</button>
+          </div>
+        </div>
+        <div class="bars" id="bars"><div class="goal-line" id="goal-line"></div></div>
+        <div class="week-note">
+          <svg class="ic ic-20"><use href="#i-bell"/></svg>
+          <span id="week-note-text">아직 기록이 없어요. 오늘 한 끼부터 시작해 볼까요?</span>
+        </div>
+        <div class="log-actions">
+          <button class="btn btn-ghost" type="button" id="reset-btn">
+            <svg class="ic ic-16"><use href="#i-refresh"/></svg>전체 기록 초기화
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ 브랜드 소개 ═══════════════ -->
+<section class="brand" id="brand">
+  <div class="container">
+    <div class="brand-grid">
+      <div>
+        <div class="eyebrow">About SweetBalance</div>
+        <h2>진정으로 건강한 식사를 통해,<br>누구나 목표와 행복을<br>이룰 수 있는 삶을 만든다.</h2>
+        <p class="mission-en">
+          "Through truly healthy meals, we help everyone build a life where they can reach their goals and find happiness."
+        </p>
+      </div>
+      <div class="pillars">
+        <div class="pillar">
+          <div class="w">Warm</div>
+          <div class="kr">따뜻한</div>
+          <div class="ds">음식처럼, 브랜드도 사람을 품습니다. 건강을 훈계하지 않고 응원합니다.</div>
+        </div>
+        <div class="pillar">
+          <div class="w">Fresh</div>
+          <div class="kr">신선한</div>
+          <div class="ds">재료처럼, 언어와 디자인도 가볍고 선명하게. 군더더기 없이.</div>
+        </div>
+        <div class="pillar">
+          <div class="w">Honest</div>
+          <div class="kr">정직한</div>
+          <div class="ds">칼로리·영양소를 숨기지 않습니다. 숫자가 곧 신뢰입니다.</div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="site-footer">
+      <span class="slogan">Eat fresh, be your Best.</span>
+      <div class="footer-links">
+        <a href="#top"><svg class="ic ic-16"><use href="#i-truck"/></svg>새벽 배송 안내</a>
+        <a href="#top"><svg class="ic ic-16"><use href="#i-mail"/></svg>hello@sweetbalance.kr</a>
+        <a href="#top"><svg class="ic ic-16"><use href="#i-phone"/></svg>고객센터</a>
+      </div>
+      <span class="legal">© 2026 SWB Corporation. All rights reserved.</span>
+    </footer>
+  </div>
+</section>
+
+<script>
+(function () {
+  'use strict';
+
+  /* ───────── 데이터 정의 ───────── */
+  var WORKOUTS = [
+    { id: 'strength', name: '근력' },
+    { id: 'cardio',   name: '유산소' },
+    { id: 'home',     name: '홈트' },
+    { id: 'rest',     name: '휴식' }
+  ];
+  var MEALS = [
+    { id: 'cobb',    name: '콥샐러드',        emoji: '🥗', protein: 23 },
+    { id: 'chicken', name: '닭가슴살 스테이크', emoji: '🍗', protein: 32 },
+    { id: 'shake',   name: '프로틴 쉐이크',    emoji: '🥤', protein: 20 },
+    { id: 'own',     name: '직접 챙긴 한 끼',  emoji: '🍱', protein: 15 }
+  ];
+  var DOW_KR = ['일', '월', '화', '수', '목', '금', '토'];
+  var STORE_KEY = 'swb-routine-v1';
+
+  /* ───────── 상태 ───────── */
+  var today = new Date(); today.setHours(0, 0, 0, 0);
+  var state = load();
+  var view = { y: today.getFullYear(), m: today.getMonth() };
+  var selected = key(today);
+  var draft = { workout: null, meal: null };
+
+  /* ───────── 저장소 ───────── */
+  function load() {
+    var base = { goal: 25, days: {} };
+    try {
+      var raw = window.localStorage.getItem(STORE_KEY);
+      if (!raw) return base;
+      var parsed = JSON.parse(raw);
+      return {
+        goal: [20, 25, 30].indexOf(parsed.goal) > -1 ? parsed.goal : 25,
+        days: (parsed && typeof parsed.days === 'object' && parsed.days) || {}
+      };
+    } catch (e) { return base; }
+  }
+  function save() {
+    try { window.localStorage.setItem(STORE_KEY, JSON.stringify(state)); } catch (e) { /* 저장 불가 환경 무시 */ }
+  }
+
+  /* ───────── 날짜 유틸 ───────── */
+  function key(d) {
+    return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate());
+  }
+  function pad(n) { return n < 10 ? '0' + n : '' + n; }
+  function fromKey(k) { var p = k.split('-'); return new Date(+p[0], +p[1] - 1, +p[2]); }
+  function shift(d, n) { var x = new Date(d.getTime()); x.setDate(x.getDate() + n); return x; }
+  function mealOf(id) { for (var i = 0; i < MEALS.length; i++) { if (MEALS[i].id === id) return MEALS[i]; } return null; }
+  function workoutOf(id) { for (var i = 0; i < WORKOUTS.length; i++) { if (WORKOUTS[i].id === id) return WORKOUTS[i]; } return null; }
+  function proteinOn(k) { var r = state.days[k]; var m = r && mealOf(r.meal); return m ? m.protein : 0; }
+
+  /* ───────── 엘리먼트 ───────── */
+  var $ = function (id) { return document.getElementById(id); };
+  var grid = $('cal-grid');
+  var workoutRow = $('workout-row');
+  var mealRow = $('meal-row');
+
+  /* ───────── 선택 UI 만들기 ───────── */
+  WORKOUTS.forEach(function (w) {
+    var b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'choice';
+    b.setAttribute('aria-pressed', 'false');
+    b.dataset.workout = w.id;
+    b.textContent = w.name;
+    b.addEventListener('click', function () {
+      draft.workout = draft.workout === w.id ? null : w.id;
+      renderLog();
+    });
+    workoutRow.appendChild(b);
+  });
+
+  MEALS.forEach(function (m) {
+    var b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'meal';
+    b.setAttribute('aria-pressed', 'false');
+    b.dataset.meal = m.id;
+    b.innerHTML = '<span class="em" aria-hidden="true">' + m.emoji + '</span>' +
+      '<span><span class="nm">' + m.name + '</span><br><span class="pg">단백질 ' + m.protein + 'g</span></span>';
+    b.addEventListener('click', function () {
+      draft.meal = draft.meal === m.id ? null : m.id;
+      renderLog();
+    });
+    mealRow.appendChild(b);
+  });
+
+  /* ───────── 캘린더 렌더 ───────── */
+  function renderCalendar() {
+    var first = new Date(view.y, view.m, 1);
+    var startDow = first.getDay();
+    var daysInMonth = new Date(view.y, view.m + 1, 0).getDate();
+
+    $('cal-title').firstChild.nodeValue = view.y + '. ' + pad(view.m + 1) + ' ';
+    $('cal-title-kr').textContent = (view.m + 1) + '월';
+    $('next-month').disabled = (view.y === today.getFullYear() && view.m === today.getMonth());
+
+    grid.innerHTML = '';
+
+    for (var b = 0; b < startDow; b++) {
+      var blank = document.createElement('div');
+      blank.className = 'day is-empty';
+      grid.appendChild(blank);
+    }
+
+    for (var d = 1; d <= daysInMonth; d++) {
+      var date = new Date(view.y, view.m, d);
+      var k = key(date);
+      var rec = state.days[k];
+      var isFuture = date.getTime() > today.getTime();
+      var isToday = k === key(today);
+
+      var cell = document.createElement('button');
+      cell.type = 'button';
+      cell.className = 'day';
+      cell.dataset.key = k;
+      if (isToday) cell.classList.add('is-today');
+      if (k === selected) cell.classList.add('is-selected');
+      if (isFuture) cell.disabled = true;
+
+      var label = view.y + '년 ' + (view.m + 1) + '월 ' + d + '일';
+      if (rec) {
+        cell.classList.add('is-stamped');
+        var m = mealOf(rec.meal);
+        var w = workoutOf(rec.workout);
+        var mark = document.createElement('span');
+        mark.className = 'stamp';
+        if (m) { mark.textContent = m.emoji; mark.setAttribute('role', 'img'); mark.setAttribute('aria-hidden', 'true'); }
+        cell.appendChild(mark);
+        label += ' · ' + (w ? w.name : '') + (m ? ' · ' + m.name + ' 단백질 ' + m.protein + 'g' : '') + ' 기록됨';
+      }
+
+      var num = document.createElement('span');
+      num.className = 'd';
+      num.textContent = d;
+      cell.appendChild(num);
+
+      cell.setAttribute('aria-label', label + (isToday ? ' (오늘)' : ''));
+      cell.addEventListener('click', onPickDay);
+      grid.appendChild(cell);
+    }
+  }
+
+  function onPickDay(e) {
+    selected = e.currentTarget.dataset.key;
+    var rec = state.days[selected];
+    draft = rec ? { workout: rec.workout, meal: rec.meal } : { workout: null, meal: null };
+    hideMsg();
+    renderCalendar();
+    renderLog();
+  }
+
+  /* ───────── 기록 패널 렌더 ───────── */
+  function renderLog() {
+    var date = fromKey(selected);
+    var rec = state.days[selected];
+    var isToday = selected === key(today);
+
+    $('log-date').textContent = (date.getMonth() + 1) + '월 ' + date.getDate() + '일 ' +
+      DOW_KR[date.getDay()] + '요일' + (isToday ? ' (오늘)' : '');
+    $('log-sub').textContent = rec
+      ? '이미 기록된 날이에요. 내용을 바꾸고 다시 저장하실 수 있어요.'
+      : '오늘 한 운동과 챙긴 한 끼를 골라주세요.';
+
+    Array.prototype.forEach.call(workoutRow.children, function (b) {
+      b.setAttribute('aria-pressed', String(b.dataset.workout === draft.workout));
+    });
+    Array.prototype.forEach.call(mealRow.children, function (b) {
+      b.setAttribute('aria-pressed', String(b.dataset.meal === draft.meal));
+    });
+
+    var w = workoutOf(draft.workout);
+    var m = mealOf(draft.meal);
+    var preview = $('log-preview');
+    if (w && m) {
+      preview.classList.add('is-ready');
+      $('lp-em').textContent = m.emoji;
+      $('lp-title').textContent = w.name + ' + ' + m.name;
+      $('lp-sub').textContent = '이 날 단백질 ' + m.protein + 'g으로 기록됩니다.';
+    } else {
+      preview.classList.remove('is-ready');
+      $('lp-em').textContent = m ? m.emoji : '🍽️';
+      $('lp-title').textContent = !w && !m
+        ? '운동과 한 끼를 모두 고르면 도장을 찍을 수 있어요'
+        : (!w ? '오늘의 운동을 골라주세요' : '함께 챙긴 한 끼를 골라주세요');
+      $('lp-sub').textContent = '기록은 이 브라우저에만 저장되고, 언제든 지울 수 있어요.';
+    }
+
+    var ready = !!(draft.workout && draft.meal);
+    $('save-btn').disabled = !ready;
+    $('save-btn').lastChild.nodeValue = rec ? '기록 수정하기' : '도장 찍기';
+    $('delete-btn').hidden = !rec;
+  }
+
+  /* ───────── 통계 ───────── */
+  function streakCount() {
+    var cursor = new Date(today.getTime());
+    if (!state.days[key(cursor)]) {
+      cursor = shift(cursor, -1);
+      if (!state.days[key(cursor)]) return 0;
+    }
+    var n = 0;
+    while (state.days[key(cursor)]) { n++; cursor = shift(cursor, -1); }
+    return n;
+  }
+
+  function renderStats() {
+    $('stat-streak').innerHTML = streakCount() + '<small>일</small>';
+
+    var count = 0, protein = 0;
+    var prefix = view.y + '-' + pad(view.m + 1) + '-';
+    for (var k in state.days) {
+      if (Object.prototype.hasOwnProperty.call(state.days, k) && k.indexOf(prefix) === 0) {
+        count++; protein += proteinOn(k);
+      }
+    }
+    $('stat-month').innerHTML = count + '<small>일</small>';
+    $('stat-protein').innerHTML = protein.toLocaleString() + '<small>g</small>';
+    $('stat-month-label').textContent = (view.m + 1) + '월 기록';
+  }
+
+  /* ───────── 주간 리포트 ───────── */
+  function renderWeek() {
+    var bars = $('bars');
+    Array.prototype.slice.call(bars.querySelectorAll('.bar-col')).forEach(function (n) { n.remove(); });
+
+    var max = Math.max(state.goal * 1.25, 36);
+    for (var i = 6; i >= 0; i--) {
+      var date = shift(today, -i);
+      var k = key(date);
+      max = Math.max(max, proteinOn(k));
+    }
+
+    var hitDays = 0, total = 0, loggedDays = 0;
+    for (var j = 6; j >= 0; j--) {
+      var d = shift(today, -j);
+      var kk = key(d);
+      var p = proteinOn(kk);
+      total += p;
+      if (p > 0) loggedDays++;
+
+      var col = document.createElement('div');
+      col.className = 'bar-col' + (j === 0 ? ' is-today' : '');
+
+      var track = document.createElement('div');
+      track.className = 'bar-track';
+      var bar = document.createElement('div');
+      bar.className = 'bar' + (p > 0 ? ' has' : '') + (p >= state.goal ? ' hit' : '');
+      bar.style.height = Math.max(4, Math.round((p / max) * 100)) + '%';
+      if (p >= state.goal) hitDays++;
+      if (p > 0) {
+        var val = document.createElement('span');
+        val.className = 'val';
+        val.textContent = p + 'g';
+        bar.appendChild(val);
+      }
+      bar.setAttribute('role', 'img');
+      bar.setAttribute('aria-label', (d.getMonth() + 1) + '월 ' + d.getDate() + '일 단백질 ' + p + 'g');
+      track.appendChild(bar);
+
+      var dl = document.createElement('div');
+      dl.className = 'dl';
+      dl.textContent = j === 0 ? '오늘' : DOW_KR[d.getDay()];
+
+      col.appendChild(track);
+      col.appendChild(dl);
+      bars.appendChild(col);
+    }
+
+    positionGoalLine(max);
+    $('week-caption').textContent = '기록한 한 끼의 단백질이에요. 목표선 ' + state.goal + 'g을 넘긴 날은 하늘색으로 표시됩니다.';
+
+    var note = $('week-note-text');
+    if (total === 0) {
+      note.textContent = '아직 기록이 없어요. 오늘 한 끼부터 시작해 볼까요?';
+    } else {
+      var avg = Math.round(total / loggedDays);
+      var msg = '최근 7일 중 ' + loggedDays + '일 기록 · 기록한 날 평균 단백질 ' + avg + 'g · 목표 달성 ' + hitDays + '일이에요. ';
+      if (hitDays >= 5) msg += '이 페이스면 충분합니다. 오늘도 그대로 가세요.';
+      else if (avg >= state.goal) msg += '평균은 목표를 넘겼어요. 비어 있는 날만 채우면 완벽합니다.';
+      else msg += '닭가슴살 스테이크 한 끼면 32g이 한 번에 채워집니다.';
+      note.textContent = msg;
+    }
+  }
+
+  function positionGoalLine(max) {
+    var bars = $('bars');
+    var track = bars.querySelector('.bar-track');
+    var line = $('goal-line');
+    if (!track) { line.hidden = true; return; }
+    line.hidden = false;
+    var barsRect = bars.getBoundingClientRect();
+    var trackRect = track.getBoundingClientRect();
+    if (!trackRect.height) return;
+    var y = trackRect.bottom - (state.goal / max) * trackRect.height;
+    line.style.top = (y - barsRect.top) + 'px';
+    line.style.bottom = 'auto';
+  }
+
+  function renderAll() { renderCalendar(); renderLog(); renderStats(); renderWeek(); }
+
+  /* ───────── 메시지 ───────── */
+  var msgTimer = null;
+  function showMsg(text) {
+    $('log-msg-text').textContent = text;
+    $('log-msg').classList.add('show');
+    window.clearTimeout(msgTimer);
+    msgTimer = window.setTimeout(hideMsg, 2600);
+  }
+  function hideMsg() { $('log-msg').classList.remove('show'); }
+
+  /* ───────── 이벤트 ───────── */
+  $('save-btn').addEventListener('click', function () {
+    if (!draft.workout || !draft.meal) return;
+    state.days[selected] = { workout: draft.workout, meal: draft.meal };
+    save();
+    renderAll();
+    var m = mealOf(draft.meal);
+    showMsg('기록했어요. 단백질 ' + (m ? m.protein : 0) + 'g 적립!');
+  });
+
+  $('delete-btn').addEventListener('click', function () {
+    delete state.days[selected];
+    draft = { workout: null, meal: null };
+    save();
+    renderAll();
+    showMsg('기록을 지웠어요.');
+  });
+
+  $('prev-month').addEventListener('click', function () {
+    view.m--; if (view.m < 0) { view.m = 11; view.y--; }
+    renderCalendar(); renderStats();
+  });
+  $('next-month').addEventListener('click', function () {
+    view.m++; if (view.m > 11) { view.m = 0; view.y++; }
+    renderCalendar(); renderStats();
+  });
+
+  Array.prototype.forEach.call(document.querySelectorAll('[data-goal]'), function (b) {
+    b.addEventListener('click', function () {
+      state.goal = parseInt(b.dataset.goal, 10);
+      Array.prototype.forEach.call(document.querySelectorAll('[data-goal]'), function (o) {
+        o.setAttribute('aria-pressed', String(o === b));
+      });
+      save();
+      renderWeek();
+    });
+  });
+
+  $('reset-btn').addEventListener('click', function () {
+    if (!window.confirm('기록한 도장을 모두 지울까요? 되돌릴 수 없습니다.')) return;
+    state.days = {};
+    draft = { workout: null, meal: null };
+    save();
+    renderAll();
+    showMsg('처음부터 다시 시작해요.');
+  });
+
+  Array.prototype.forEach.call(document.querySelectorAll('[data-add]'), function (b) {
+    b.addEventListener('click', function () {
+      var original = b.innerHTML;
+      b.innerHTML = '<svg class="ic ic-20"><use href="#i-check"/></svg>담았습니다';
+      window.setTimeout(function () { b.innerHTML = original; }, 1600);
+    });
+  });
+
+  /* ───────── 초기 렌더 ───────── */
+  Array.prototype.forEach.call(document.querySelectorAll('[data-goal]'), function (b) {
+    b.setAttribute('aria-pressed', String(parseInt(b.dataset.goal, 10) === state.goal));
+  });
+  var todayRec = state.days[selected];
+  if (todayRec) draft = { workout: todayRec.workout, meal: todayRec.meal };
+  renderAll();
+  window.requestAnimationFrame(renderWeek);
+  window.addEventListener('resize', renderWeek);
+})();
+</script>
 </body>
 </html>
