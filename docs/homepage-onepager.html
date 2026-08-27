@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>스윗밸런스 자사몰 홈페이지 개편 — 원페이저</title>
+<meta name="description" content="운동하는 고객을 위한 스윗밸런스 홈페이지 개편 요약. 화면 구성, 주인공 기능(운동 루틴 캘린더), 인터뷰 답변 반영 내역.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Chewy&display=swap" rel="stylesheet">
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<style>
+@font-face {
+  font-family: 'SamlipHopangche';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/Samliphopangche_Basic.woff') format('woff');
+  font-weight: normal; font-style: normal; font-display: swap;
+}
+:root {
+  --g:#00614E; --g2:#007C5E; --sw:#FDFFE6; --sky:#50AADC; --sky-deep:#2C7BA6;
+  --ink:#1B2A24; --char:#3A4742; --slate:#6B7571; --mist:#C8CEC9; --paper:#F6F4E8; --white:#fff;
+  --border:rgba(0,97,78,.18); --divider:rgba(0,97,78,.09); --tint:rgba(0,97,78,.06); --tint-strong:rgba(0,97,78,.10);
+  --sky-tint:rgba(80,170,220,.14);
+  --shadow-sm:0 2px 6px rgba(27,42,36,.08); --shadow-md:0 8px 24px rgba(27,42,36,.10);
+  --shadow-lg:0 20px 48px rgba(0,97,78,.14); --shadow-brand:0 10px 28px rgba(0,97,78,.22);
+  --r-sm:8px; --r-md:14px; --r-lg:20px; --r-xl:28px; --r-2xl:36px; --r-pill:999px;
+  --s1:4px; --s2:8px; --s3:12px; --s4:16px; --s5:20px; --s6:24px; --s8:32px; --s10:40px; --s12:48px; --s16:64px; --s20:80px;
+  --en:'Montserrat',sans-serif;
+  --kr:'Pretendard Variable','Pretendard','Apple SD Gothic Neo',sans-serif;
+  --display-kr:'SamlipHopangche','Pretendard Variable','Pretendard',sans-serif;
+  --display-en:'Chewy','Montserrat',sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--sw);color:var(--ink);font-family:var(--kr);font-size:16px;line-height:1.7;-webkit-font-smoothing:antialiased}
+h1,h2,h3{line-height:1.2;letter-spacing:-.02em}
+.wrap{max-width:1080px;margin:0 auto;padding:0 var(--s6)}
+.eyebrow{font-family:var(--en);font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--g)}
+.ic{width:24px;height:24px;stroke:currentColor;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round;fill:none;flex-shrink:0}
+.ic-16{width:16px;height:16px}.ic-20{width:20px;height:20px}
+
+/* Cover */
+.cover{background:var(--g);color:var(--sw);padding:var(--s20) 0 var(--s16);position:relative;overflow:hidden}
+.cover::before{content:"SweetBalance";position:absolute;top:16px;left:24px;font-family:var(--display-en);
+  font-size:180px;line-height:1;color:rgba(253,255,230,.06);white-space:nowrap;pointer-events:none;user-select:none}
+.cover .eyebrow{color:rgba(253,255,230,.6);position:relative}
+.cover h1{font-family:var(--display-kr);font-size:clamp(32px,5vw,52px);color:var(--sw);
+  margin:var(--s3) 0 var(--s4);position:relative;line-height:1.25}
+.cover p{font-size:18px;color:rgba(253,255,230,.82);max-width:60ch;position:relative}
+.meta{display:flex;gap:var(--s8);margin-top:var(--s10);position:relative;flex-wrap:wrap}
+.meta .k{font-family:var(--en);font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(253,255,230,.5)}
+.meta .v{font-size:14px;font-weight:600;color:rgba(253,255,230,.92);margin-top:4px}
+
+/* Sections */
+.sec{padding:var(--s20) 0;border-bottom:1px solid var(--divider)}
+.sec:last-of-type{border-bottom:none}
+.sec-h{margin-bottom:var(--s10);max-width:72ch}
+.sec-h h2{font-family:var(--display-kr);font-size:clamp(26px,3.6vw,36px);margin:var(--s2) 0 var(--s3);line-height:1.3}
+.sec-h p{color:var(--char)}
+
+.card{background:var(--white);border:1px solid var(--border);border-radius:var(--r-lg);box-shadow:var(--shadow-sm)}
+.badge{display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border-radius:var(--r-pill);
+  font-size:11px;font-weight:700;letter-spacing:.04em;background:var(--tint-strong);color:var(--g)}
+.badge-sky{background:var(--sky-tint);color:var(--sky-deep)}
+
+/* AS-IS / TO-BE */
+.compare{display:grid;grid-template-columns:1fr auto 1fr;gap:var(--s5);align-items:stretch}
+.compare .arrow{display:flex;align-items:center;color:var(--g)}
+.panel{padding:var(--s6);border-radius:var(--r-lg);border:1px solid var(--border);background:var(--white)}
+.panel.asis{background:var(--paper);border-style:dashed}
+.panel.tobe{border-color:var(--g);box-shadow:var(--shadow-brand)}
+.panel h3{font-size:18px;margin-bottom:var(--s2)}
+.panel .lbl{font-family:var(--en);font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--slate);margin-bottom:var(--s3)}
+.panel.tobe .lbl{color:var(--g)}
+.panel ul{list-style:none;margin-top:var(--s3);display:grid;gap:var(--s2)}
+.panel li{display:flex;gap:var(--s2);font-size:14px;color:var(--char);line-height:1.6}
+.panel li svg{margin-top:4px;color:var(--g)}
+.panel.asis li svg{color:var(--mist)}
+.mini{margin-top:var(--s5);border-radius:var(--r-md);border:1px solid var(--border);background:var(--sw);padding:var(--s5);
+  display:flex;align-items:center;justify-content:center;min-height:120px;text-align:center}
+.mini .t{font-size:20px;font-weight:700;color:var(--char)}
+.mini .d{font-size:12px;color:var(--slate);margin-top:6px}
+.mini-stack{display:grid;gap:6px;width:100%}
+.mini-band{border-radius:var(--r-sm);padding:8px 12px;font-size:12px;font-weight:700;text-align:left}
+@media(max-width:820px){.compare{grid-template-columns:1fr}.compare .arrow{justify-content:center;transform:rotate(90deg)}}
+
+/* 화면 구성 4단 */
+.flow{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--s4)}
+.step{padding:var(--s5);position:relative;display:flex;flex-direction:column;gap:var(--s2)}
+.step .n{font-family:var(--en);font-weight:800;font-size:32px;color:var(--tint-strong);line-height:1}
+.step.star{border-color:var(--g);border-width:2px;box-shadow:var(--shadow-brand)}
+.step.star .n{color:var(--sky)}
+.step h3{font-size:17px}
+.step p{font-size:13px;color:var(--char);line-height:1.65}
+.step .q{font-size:12px;color:var(--g);font-weight:600;margin-top:auto;padding-top:var(--s3)}
+@media(max-width:900px){.flow{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:520px){.flow{grid-template-columns:1fr}}
+
+/* 주인공 기능 */
+.hero-feature{background:var(--g);color:var(--sw);border-radius:var(--r-2xl);padding:var(--s12) var(--s10);
+  position:relative;overflow:hidden;box-shadow:var(--shadow-brand)}
+.hero-feature::after{content:"";position:absolute;width:320px;height:320px;right:-110px;bottom:-150px;
+  border-radius:var(--r-pill);background:rgba(253,255,230,.06)}
+.hero-feature .eyebrow{color:rgba(253,255,230,.6)}
+.hero-feature h3{font-family:var(--display-kr);font-size:clamp(24px,3.4vw,34px);color:var(--sw);margin:var(--s3) 0 var(--s4);position:relative;line-height:1.3}
+.hero-feature > p{color:rgba(253,255,230,.85);max-width:62ch;position:relative}
+.fgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--s4);margin-top:var(--s8);position:relative}
+.fitem{background:rgba(253,255,230,.08);border:1px solid rgba(253,255,230,.16);border-radius:var(--r-md);padding:var(--s5);display:flex;gap:var(--s4)}
+.fitem .ib{width:40px;height:40px;border-radius:var(--r-sm);background:rgba(253,255,230,.14);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.fitem h4{font-size:15px;color:var(--sw);margin-bottom:4px}
+.fitem p{font-size:13px;color:rgba(253,255,230,.78);line-height:1.6}
+@media(max-width:760px){.fgrid{grid-template-columns:1fr}.hero-feature{padding:var(--s8) var(--s6)}}
+
+/* 흐름도 */
+.steps-line{display:flex;align-items:stretch;gap:var(--s3);margin-top:var(--s8);position:relative;flex-wrap:wrap}
+.sl{flex:1;min-width:150px;background:rgba(253,255,230,.10);border:1px solid rgba(253,255,230,.18);
+  border-radius:var(--r-md);padding:var(--s4);display:flex;flex-direction:column;gap:6px}
+.sl .k{font-family:var(--en);font-size:10px;font-weight:800;letter-spacing:.14em;color:rgba(253,255,230,.55)}
+.sl .t{font-size:14px;font-weight:700;color:var(--sw)}
+.sl .d{font-size:12px;color:rgba(253,255,230,.72);line-height:1.55}
+
+/* 답변 반영 테이블 */
+.table-wrap{overflow-x:auto;border:1px solid var(--border);border-radius:var(--r-lg);background:var(--white)}
+table{width:100%;border-collapse:collapse;font-size:14px;min-width:720px}
+th{text-align:left;padding:14px 18px;background:var(--tint);font-family:var(--en);font-size:11px;font-weight:700;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--g);white-space:nowrap}
+td{padding:16px 18px;border-top:1px solid var(--divider);color:var(--char);vertical-align:top;line-height:1.65}
+td.qn{font-weight:700;color:var(--ink);white-space:nowrap}
+td .ans{display:inline-block;font-weight:700;color:var(--g)}
+
+/* 디자인 시스템 준수 */
+.ds-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s4)}
+.ds{padding:var(--s5)}
+.ds h4{font-family:var(--en);font-size:13px;font-weight:700;color:var(--g);letter-spacing:.06em;text-transform:uppercase;margin-bottom:var(--s3)}
+.ds li{display:flex;gap:var(--s2);font-size:13px;color:var(--char);padding:5px 0;line-height:1.6}
+.ds li svg{margin-top:4px;color:var(--g)}
+.swatches{display:flex;gap:6px;margin-top:var(--s3);flex-wrap:wrap}
+.sw{width:100%;max-width:64px;height:40px;border-radius:var(--r-sm);border:1px solid var(--border);
+  display:flex;align-items:flex-end;justify-content:center;font-family:var(--en);font-size:9px;font-weight:700;padding-bottom:3px}
+@media(max-width:860px){.ds-grid{grid-template-columns:1fr}}
+
+/* 변경 파일 */
+.files{display:grid;gap:var(--s3)}
+.file{display:flex;align-items:center;gap:var(--s4);padding:var(--s4) var(--s5);border-radius:var(--r-md);
+  background:var(--white);border:1px solid var(--border)}
+.file .tag{font-family:var(--en);font-size:10px;font-weight:800;letter-spacing:.1em;padding:4px 10px;border-radius:var(--r-pill)}
+.tag-new{background:var(--g);color:var(--sw)}
+.tag-mod{background:var(--sky-tint);color:var(--sky-deep)}
+.file .path{font-family:ui-monospace,'SF Mono',Menlo,monospace;font-size:13px;color:var(--ink);font-weight:600}
+.file .desc{font-size:13px;color:var(--slate);margin-left:auto;text-align:right}
+@media(max-width:640px){.file{flex-wrap:wrap}.file .desc{margin-left:0;text-align:left;width:100%}}
+
+.note{margin-top:var(--s6);padding:var(--s5);border-radius:var(--r-md);background:var(--sky-tint);
+  display:flex;gap:var(--s3);font-size:14px;color:var(--char);line-height:1.7}
+.note svg{color:var(--sky-deep);margin-top:3px}
+
+footer{background:var(--g);color:rgba(253,255,230,.7);padding:var(--s8) 0;margin-top:var(--s12)}
+footer .row{display:flex;justify-content:space-between;gap:var(--s4);flex-wrap:wrap;font-size:12px}
+footer .slogan{font-family:var(--en);font-weight:700;font-style:italic;color:rgba(253,255,230,.85)}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+  <symbol id="i-dot" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></symbol>
+  <symbol id="i-flame" viewBox="0 0 24 24"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5Z"/></symbol>
+  <symbol id="i-calendar" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></symbol>
+  <symbol id="i-leaf" viewBox="0 0 24 24"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect width="18" height="11" x="3" y="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></symbol>
+  <symbol id="i-bell" viewBox="0 0 24 24"><path d="M10.268 21a2 2 0 0 0 3.464 0"/><path d="M3.262 15.326A1 1 0 0 0 4 17h16a1 1 0 0 0 .74-1.673C19.41 13.956 18 12.499 18 8A6 6 0 0 0 6 8c0 4.499-1.411 5.956-2.738 7.326"/></symbol>
+</svg>
+
+<!-- Cover -->
+<header class="cover">
+  <div class="wrap">
+    <div class="eyebrow">Homepage Renewal · One Pager</div>
+    <h1>운동하는 고객을 위한<br>스윗밸런스 자사몰 홈페이지</h1>
+    <p>
+      인터뷰 5문답을 기반으로 첫 화면 · 대표 제품 · 주인공 기능 · 브랜드 소개 4단 구조를 설계하고,
+      SweetBalance Brand Design System Manual(Ver. 2025.07.25)의 규칙을 그대로 적용했습니다.
+    </p>
+    <div class="meta">
+      <div><div class="k">담당</div><div class="v">유안나</div></div>
+      <div><div class="k">기준 문서</div><div class="v">Brand Design System Manual v2025.07.25</div></div>
+      <div><div class="k">산출물</div><div class="v">index.html (단일 파일)</div></div>
+      <div><div class="k">주인공 기능</div><div class="v">운동 루틴 캘린더</div></div>
+    </div>
+  </div>
+</header>
+
+<!-- AS-IS / TO-BE -->
+<section class="sec">
+  <div class="wrap">
+    <div class="sec-h">
+      <div class="eyebrow">01 — As-Is / To-Be</div>
+      <h2>무엇이 달라지나</h2>
+      <p>기존에는 인사말과 날짜만 있는 한 장짜리 정적 페이지였습니다. 이번 개편으로 판매·기록·브랜딩이 한 페이지에서 이어집니다.</p>
+    </div>
+
+    <div class="compare">
+      <div class="panel asis">
+        <div class="lbl">AS-IS</div>
+        <h3>인사말 + 오늘 날짜</h3>
+        <ul>
+          <li><svg class="ic ic-16"><use href="#i-dot"/></svg>화면 가운데 인사 문구 1줄과 오늘 날짜만 표시</li>
+          <li><svg class="ic ic-16"><use href="#i-dot"/></svg>제품·브랜드 정보 없음</li>
+          <li><svg class="ic ic-16"><use href="#i-dot"/></svg>고객이 할 수 있는 행동 없음</li>
+          <li><svg class="ic ic-16"><use href="#i-dot"/></svg>브랜드 컬러·타이포 미적용 (범용 회색 톤)</li>
+        </ul>
+        <div class="mini">
+          <div>
+            <div class="t">안녕하세요, 유안나입니다</div>
+            <div class="d">2026년 8월 27일 (목)</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="arrow"><svg class="ic"><use href="#i-arrow"/></svg></div>
+
+      <div class="panel tobe">
+        <div class="lbl">TO-BE</div>
+        <h3>4단 구조의 자사몰 홈페이지</h3>
+        <ul>
+          <li><svg class="ic ic-16"><use href="#i-check"/></svg>히어로 · 대표 제품 · 운동 루틴 캘린더 · 브랜드 소개</li>
+          <li><svg class="ic ic-16"><use href="#i-check"/></svg>실제로 눌러서 작동하는 기록 기능 탑재</li>
+          <li><svg class="ic ic-16"><use href="#i-check"/></svg>디자인 시스템 토큰 전면 적용 (컬러·타이포·간격·모션)</li>
+          <li><svg class="ic ic-16"><use href="#i-check"/></svg>모바일 대응 · 키보드 접근성 · 외부 이미지 의존 없음</li>
+        </ul>
+        <div class="mini">
+          <div class="mini-stack">
+            <div class="mini-band" style="background:var(--tint-strong);color:var(--g)">① 잘 먹는 것까지가 운동입니다</div>
+            <div class="mini-band" style="background:var(--paper);color:var(--char)">② 대표 제품 — 콥샐러드</div>
+            <div class="mini-band" style="background:var(--g);color:var(--sw)">③ ★ 운동 루틴 캘린더</div>
+            <div class="mini-band" style="background:var(--tint);color:var(--char)">④ 브랜드 소개</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 화면 구성 -->
+<section class="sec">
+  <div class="wrap">
+    <div class="sec-h">
+      <div class="eyebrow">02 — Page Structure</div>
+      <h2>화면 구성 4단</h2>
+      <p>위에서 아래로 «공감 → 제품 → 습관 → 신뢰» 순서로 읽히도록 배치했습니다.</p>
+    </div>
+
+    <div class="flow">
+      <article class="card step">
+        <div class="n">01</div>
+        <h3>첫 화면</h3>
+        <p>“잘 먹는 것까지가 운동입니다” 헤드라인과 함께 단백질 23g · 420kcal · AM 7 도착을 숫자로 바로 노출. CTA 2개(캘린더 시작 / 제품 보기).</p>
+        <div class="q">← 답변 1·2 반영</div>
+      </article>
+
+      <article class="card step">
+        <div class="n">02</div>
+        <h3>대표 제품</h3>
+        <p>콥샐러드를 Vital Green 대형 카드로 단독 배치하고 선택 이유를 카피에 명시. 닭가슴살 스테이크·프로틴 쉐이크·주 5일 루틴 박스가 보조.</p>
+        <div class="q">← 답변 3 반영</div>
+      </article>
+
+      <article class="card step star">
+        <div class="n">03</div>
+        <h3>★ 운동 루틴 캘린더</h3>
+        <p>이 페이지의 주인공. 날짜를 눌러 오늘의 운동과 한 끼를 기록하면 도장이 찍히고 연속 기록·단백질 통계가 쌓입니다.</p>
+        <div class="q">← 답변 4 반영</div>
+      </article>
+
+      <article class="card step">
+        <div class="n">04</div>
+        <h3>브랜드 소개</h3>
+        <p>미션 국·영문, 브랜드 성격 Warm / Fresh / Honest, 슬로건 “Eat fresh, be your Best.”로 마무리.</p>
+        <div class="q">← 디자인 시스템 원문</div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- 주인공 기능 -->
+<section class="sec">
+  <div class="wrap">
+    <div class="sec-h">
+      <div class="eyebrow">03 — Signature Feature</div>
+      <h2>주인공 기능 — 운동 루틴 캘린더</h2>
+      <p>“운동은 기록하는데, 먹은 건 기록하지 않는다”는 공백을 메우는 기능입니다. 운동과 한 끼를 한 번에 남기게 만들어 재방문 동기를 만듭니다.</p>
+    </div>
+
+    <div class="hero-feature">
+      <div class="eyebrow">How it works</div>
+      <h3>날짜 하나 누르면, 오늘의 운동과 한 끼가 같이 남습니다</h3>
+      <p>모든 동작은 페이지 안에서 즉시 반응하며, 서버 없이 브라우저에 저장됩니다.</p>
+
+      <div class="steps-line">
+        <div class="sl"><span class="k">STEP 1</span><span class="t">날짜 선택</span><span class="d">캘린더에서 기록할 날을 누릅니다. 미래 날짜는 비활성.</span></div>
+        <div class="sl"><span class="k">STEP 2</span><span class="t">운동 선택</span><span class="d">근력 · 유산소 · 홈트 · 휴식 중 하나.</span></div>
+        <div class="sl"><span class="k">STEP 3</span><span class="t">한 끼 선택</span><span class="d">콥샐러드 23g · 닭가슴살 32g · 쉐이크 20g · 직접 챙긴 한 끼 15g.</span></div>
+        <div class="sl"><span class="k">STEP 4</span><span class="t">도장 찍기</span><span class="d">저장 즉시 도장이 찍히고 통계·그래프가 갱신됩니다.</span></div>
+      </div>
+
+      <div class="fgrid">
+        <div class="fitem">
+          <div class="ib"><svg class="ic ic-20"><use href="#i-flame"/></svg></div>
+          <div>
+            <h4>연속 기록 (Streak)</h4>
+            <p>오늘부터 거슬러 올라가며 끊기지 않은 날을 계산합니다. 오늘 아직 기록 전이면 어제 기준으로 이어서 세어, 하루 늦게 기록해도 연속이 끊기지 않습니다.</p>
+          </div>
+        </div>
+        <div class="fitem">
+          <div class="ib"><svg class="ic ic-20"><use href="#i-calendar"/></svg></div>
+          <div>
+            <h4>월별 도장 캘린더</h4>
+            <p>기록한 날은 Vital Green으로 채워지고 먹은 메뉴 이모지가 도장으로 찍힙니다. 이전 달로 이동해 지난 기록도 확인할 수 있습니다.</p>
+          </div>
+        </div>
+        <div class="fitem">
+          <div class="ib"><svg class="ic ic-20"><use href="#i-leaf"/></svg></div>
+          <div>
+            <h4>최근 7일 한 끼 단백질 그래프</h4>
+            <p>한 끼 목표(20 / 25 / 30g)를 고르면 목표선이 그려지고, 넘긴 날의 막대는 Sky Blue로 바뀝니다. 아래 코멘트가 기록 상태에 맞춰 다음 행동을 제안합니다.</p>
+          </div>
+        </div>
+        <div class="fitem">
+          <div class="ib"><svg class="ic ic-20"><use href="#i-lock"/></svg></div>
+          <div>
+            <h4>브라우저 저장 · 서버 전송 없음</h4>
+            <p>기록은 <code>localStorage</code>에만 저장되어 다시 방문해도 유지되고, 외부로 전송되지 않습니다. 수정·삭제·전체 초기화를 모두 지원합니다.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="note">
+      <svg class="ic ic-20"><use href="#i-bell"/></svg>
+      <span>
+        <strong>설계 중 바로잡은 점 —</strong> 처음에는 “하루 목표 100g”을 기준선으로 잡았지만, 한 끼만 기록하는 구조에서는 달성이 구조적으로 불가능해 그래프가 항상 미달로 보였습니다.
+        기준을 <strong>“한 끼 목표 20 / 25 / 30g”</strong>으로 바꿔, 콥샐러드(23g) 한 끼로도 목표선을 넘길 수 있게 했습니다.
+      </span>
+    </div>
+  </div>
+</section>
+
+<!-- 반영된 답변 -->
+<section class="sec">
+  <div class="wrap">
+    <div class="sec-h">
+      <div class="eyebrow">04 — Interview Mapping</div>
+      <h2>인터뷰 답변이 들어간 자리</h2>
+      <p>5개 질문의 답변이 페이지의 어느 요소로 구현되었는지 정리했습니다.</p>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>질문</th><th>답변</th><th>페이지에 반영된 위치와 방식</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="qn">1. 손님은 누구</td>
+            <td><span class="ans">운동하는 사람<br>(단백질 중심)</span></td>
+            <td>히어로 아이브로우를 <em>“For people who train”</em>으로 지정. 모든 제품 카피에서 단백질 g수를 칼로리보다 먼저 노출하고, 캘린더의 운동 선택지를 근력·유산소·홈트·휴식으로 구성했습니다.</td>
+          </tr>
+          <tr>
+            <td class="qn">2. 첫 문장</td>
+            <td><span class="ans">“잘 먹는 것까지가<br>운동입니다”</span></td>
+            <td>히어로 H1에 삼립호빵체(한글 디스플레이 전용 서체)로 그대로 사용. “운동” 두 글자만 포인트 컬러 Sky Blue로 강조했습니다.</td>
+          </tr>
+          <tr>
+            <td class="qn">3. 대표 제품</td>
+            <td><span class="ans">콥샐러드</span></td>
+            <td>제품 섹션에서 다른 제품보다 큰 Vital Green 카드로 단독 배치. 단백질 23g · 420kcal · 식이섬유 8g · 당류 6g을 숫자로 병기하고, 히어로의 스펙 숫자도 콥샐러드 기준으로 통일했습니다.</td>
+          </tr>
+          <tr>
+            <td class="qn">4. 아이디어 기능</td>
+            <td><span class="ans">운동 루틴 캘린더</span></td>
+            <td>페이지 중앙에 가장 큰 면적으로 배치한 주인공 섹션. 도장 캘린더 + 기록 패널 + 연속 기록/누적 단백질 통계 + 최근 7일 그래프로 구성했으며, 실제 클릭·저장·삭제가 동작합니다.</td>
+          </tr>
+          <tr>
+            <td class="qn">5. 분위기</td>
+            <td><span class="ans">상쾌한 푸른 포인트</span></td>
+            <td>디자인 시스템의 그린/크림 베이스는 그대로 두고, Secondary는 <strong>Sky Blue #50AADC 하나만</strong> 사용했습니다 (오늘 날짜 링, 연속 기록 아이콘, 목표 달성 막대, 히어로 강조어). Seed Green·Soil Brown은 쓰지 않았습니다.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- 디자인 시스템 준수 -->
+<section class="sec">
+  <div class="wrap">
+    <div class="sec-h">
+      <div class="eyebrow">05 — Design System Compliance</div>
+      <h2>디자인 시스템 준수 내역</h2>
+      <p>답변과 디자인 시스템이 충돌하는 지점에서는 항상 디자인 시스템을 우선했습니다.</p>
+    </div>
+
+    <div class="ds-grid">
+      <div class="card ds">
+        <h4>Color</h4>
+        <ul>
+          <li><svg class="ic ic-16"><use href="#i-check"/></svg>배경은 Sunshine White, 순백은 카드 표면에만</li>
+          <li><svg class="ic ic-16"><use href="#i-check"/></svg>한 화면에 Secondary는 하나 — Sky Blue 단독</li>
+          <li><svg class="ic ic-16"><use href="#i-check"/></svg>모든 섀도우는 그린 틴트, 회색 드롭섀도우 없음</li>
+        </ul>
+        <div class="swatches">
+          <div class="sw" style="background:#00614E;color:#FDFFE6">00614E</div>
+          <div class="sw" style="background:#007C5E;color:#FDFFE6">007C5E</div>
+          <div class="sw" style="background:#FDFFE6;color:#00614E">FDFFE6</div>
+          <div class="sw" style="background:#50AADC;color:#fff">50AADC</div>
+        </div>
+      </div>
+
+      <div class="card ds">
+        <h4>Typography &amp; Layout</h4>
+        <ul>
+          <li><svg class="ic ic-16"><use href="#i-check"/></svg>Montserrat(영문 UI) · Pretendard(한글 본문)</li>
+          <li><svg class="ic ic-16"><use href="#i-check"/></svg>삼립호빵체·Chewy는 디스플레이 헤드라인에만</li>
+          <li><svg class="ic ic-16"><use href="#i-check"/></svg>8px 간격 리듬, 기본 라운드 14px, 컨테이너 1280px</li>
+          <li><svg class="ic ic-16"><use href="#i-check"/></svg>타입 스케일 토큰(84→12px) 그대로 사용</li>
+        </ul>
+      </div>
+
+      <div class="card ds">
+        <h4>Component · Voice · Motion</h4>
+        <ul>
+          <li><svg class="ic ic-16"><use href="#i-check"/></svg>버튼은 pill, Primary CTA는 섹션당 1개</li>
+          <li><svg class="ic ic-16"><use href="#i-check"/></svg>UI 아이콘은 Lucide 인라인 SVG(stroke 1.75) — 이모지는 음식 표현에만</li>
+          <li><svg class="ic ic-16"><use href="#i-check"/></svg>카피는 존댓말, 추상어 대신 숫자 우선</li>
+          <li><svg class="ic ic-16"><use href="#i-check"/></svg>120 / 220 / 420ms 트랜지션, bounce·패럴랙스·무한 루프 없음</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="note">
+      <svg class="ic ic-20"><use href="#i-bell"/></svg>
+      <span>
+        <strong>충돌 처리 —</strong> 디자인 시스템은 “이모지를 <u>UI 아이콘</u>으로 쓰지 말 것”을 명시하고 있고, 과제 조건은 “외부 이미지 대신 이모지를 쓸 것”이었습니다.
+        두 규칙이 함께 성립하도록, <strong>UI 아이콘은 전부 Lucide 인라인 SVG</strong>로 그리고 <strong>이모지는 음식·제품 표현에만</strong> 한정했습니다
+        (디자인 시스템의 Product Card 예시와 동일한 방식).
+      </span>
+    </div>
+  </div>
+</section>
+
+<!-- 변경 파일 -->
+<section class="sec">
+  <div class="wrap">
+    <div class="sec-h">
+      <div class="eyebrow">06 — Changed Files</div>
+      <h2>변경 파일</h2>
+      <p>외부 이미지·프레임워크 의존 없이 HTML / CSS / JS를 한 파일에 담았습니다.</p>
+    </div>
+
+    <div class="files">
+      <div class="file">
+        <span class="tag tag-mod">MODIFIED</span>
+        <span class="path">index.html</span>
+        <span class="desc">홈페이지 전체 재작성 — 4단 구조 + 운동 루틴 캘린더(HTML·CSS·JS 단일 파일)</span>
+      </div>
+      <div class="file">
+        <span class="tag tag-new">NEW</span>
+        <span class="path">docs/homepage-onepager.html</span>
+        <span class="desc">이 원페이저 — 화면 구성 · 주인공 기능 · 반영된 답변 정리</span>
+      </div>
+      <div class="file">
+        <span class="tag tag-mod">MODIFIED</span>
+        <span class="path">README.md</span>
+        <span class="desc">저장소 설명을 스윗밸런스 자사몰 홈페이지 기준으로 갱신</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap row">
+    <span>© 2026 SWB Corporation. All rights reserved.</span>
+    <span class="slogan">Eat fresh, be your Best.</span>
+    <span>Homepage Renewal One Pager · Internal Use</span>
+  </div>
+</footer>
+
+</body>
+</html>
